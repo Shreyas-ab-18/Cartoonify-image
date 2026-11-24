@@ -26,6 +26,9 @@ class Cartoonifier:
     def cartoonify(self, image):
         if image is None or image.size == 0: raise ValueError("Input image is empty or invalid.")
         if image.ndim != 3 or image.shape[2] != 3: raise ValueError("Input must be a three-channel BGR image.")
+        min_dimension = max(self.edge_blur_ksize, self.edge_block_size)
+        if min(image.shape[:2]) < min_dimension:
+            raise ValueError(f"Input image must be at least {min_dimension} pixels wide and high.")
         edges = self._extract_edges(image)
         return cv2.bitwise_and(self._smooth_colors(image),cv2.cvtColor(edges,cv2.COLOR_GRAY2BGR))
 
