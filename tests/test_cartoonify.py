@@ -18,3 +18,9 @@ def test_cartoonifier_rejects_even_block_size():
 def test_cartoonifier_rejects_empty_image():
     with pytest.raises(ValueError):
         Cartoonifier().cartoonify(np.array([]))
+
+
+def test_cartoonifier_rejects_images_smaller_than_processing_windows():
+    image = np.zeros((5, 5, 3), dtype=np.uint8)
+    with pytest.raises(ValueError, match="at least"):
+        Cartoonifier().cartoonify(image)
