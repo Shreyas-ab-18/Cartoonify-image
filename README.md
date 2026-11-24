@@ -24,4 +24,4 @@ If the output path is omitted, the result is saved as `cartoon_output.jpg`.
 pip install pytest
 pytest
 ```
-The script validates input paths, decoded image data, processing parameters, and output-write success.
+The script validates input paths, decoded image data, minimum image dimensions, processing parameters, and output-write success.
