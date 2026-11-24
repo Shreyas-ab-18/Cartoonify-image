@@ -1,27 +1,27 @@
-# Cartoonifying an Image
+# Cartoonify Image
 
-An image-processing pipeline built with Python and OpenCV that converts a
-regular photo into a cartoon-style image.
+A command-line image-processing tool that creates a cartoon-style version of a photo using OpenCV.
 
-## How it works
-1. **Edge extraction** — the image is grayscaled, median-blurred to remove
-   noise, then run through adaptive thresholding to produce bold, ink-like
-   edges.
-2. **Color smoothing** — repeated bilateral filtering flattens color regions
-   into smooth patches while preserving edges better than a simple blur.
-3. **Combine** — a bitwise AND of the smoothed color image and the edge mask
-   overlays the black edges onto the flattened colors, producing the cartoon
-   effect.
+## Processing pipeline
+1. Convert input to grayscale and apply median blur.
+2. Extract bold edges using adaptive thresholding.
+3. Smooth color regions with bilateral filtering.
+4. Combine the smoothed image and edge mask.
 
-## Run it
+## Requirements and usage
+Python 3.10+ is recommended.
 ```bash
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
 python cartoonify.py input.jpg output.jpg
 ```
+If the output path is omitted, the result is saved as `cartoon_output.jpg`.
 
-If no output path is given, the result is saved as `cartoon_output.jpg`.
-
-## Tuning
-`Cartoonifier.__init__` exposes parameters for the number of bilateral filter
-passes and the adaptive-threshold block size/constant — increase
-`num_bilateral` for a flatter, more "poster-like" look.
+## Tests
+```bash
+pip install pytest
+pytest
+```
+The script validates input paths, decoded image data, processing parameters, and output-write success.
